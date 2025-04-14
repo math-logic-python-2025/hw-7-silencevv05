@@ -1,0 +1,110 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: task1
+      id: task1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task1
+        setup-command: pip install pytest
+        command: 'pytest tests/hw/test_hw07.py::test_task1 '
+        timeout: 10
+        max-score: 1
+    - name: task2
+      id: task2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task2
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task2
+        timeout: 10
+        max-score: 1
+    - name: task3
+      id: task3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task3
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task3
+        timeout: 10
+        max-score: 1
+    - name: task4
+      id: task4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task4
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task4
+        timeout: 10
+        max-score: 1
+    - name: task5
+      id: task5
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task5
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task5
+        timeout: 10
+        max-score: 1
+    - name: task6
+      id: task6
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task6
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task6
+        timeout: 10
+        max-score: 1
+    - name: task7
+      id: task7
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task7
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task7
+        timeout: 10
+        max-score: 1
+    - name: task8
+      id: task8
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task8
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task8
+        timeout: 10
+        max-score: 1
+    - name: task9
+      id: task9
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: task9
+        setup-command: pip install pytest
+        command: pytest tests/hw/test_hw07.py::test_task9
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TASK1_RESULTS: "${{steps.task1.outputs.result}}"
+        TASK2_RESULTS: "${{steps.task2.outputs.result}}"
+        TASK3_RESULTS: "${{steps.task3.outputs.result}}"
+        TASK4_RESULTS: "${{steps.task4.outputs.result}}"
+        TASK5_RESULTS: "${{steps.task5.outputs.result}}"
+        TASK6_RESULTS: "${{steps.task6.outputs.result}}"
+        TASK7_RESULTS: "${{steps.task7.outputs.result}}"
+        TASK8_RESULTS: "${{steps.task8.outputs.result}}"
+        TASK9_RESULTS: "${{steps.task9.outputs.result}}"
+      with:
+        runners: task1,task2,task3,task4,task5,task6,task7,task8,task9
